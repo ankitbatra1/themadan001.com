@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	
+	<script type="module">
+		// Import Firebase modules
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+		import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+	  
+		// Firebase config
+		const firebaseConfig = {
+			apiKey: "AIzaSyC0ED2ZwnxVTswlCrG3zys-F6TKkib7m6o",
+			authDomain: "themadan-31.firebaseapp.com",
+			projectId: "themadan-31",
+			storageBucket: "themadan-31.appspot.com", // Fixed storage bucket URL
+			messagingSenderId: "739056495510",
+			appId: "1:739056495510:web:e69fc867e97c76055fcbb7",
+			measurementId: "G-F393P8MFZV"
+		};
+	
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const analytics = getAnalytics(app);
+		const db = getFirestore(app);
+	
+		// Form submission handler
+		document.getElementById("registrationForm").addEventListener("submit", async function(event) {
+			event.preventDefault();
+	
+			const name = document.getElementById("name").value;
+			const email = document.getElementById("email").value;
+			const contact = document.getElementById("contact").value;
+			const code = document.getElementById("code").value;
+	
+			const courses = [];
+			document.querySelectorAll('input[name="course"]:checked').forEach(checkbox => {
+				courses.push(checkbox.value);
+			});
+	
+			const experience = document.querySelector('input[name="experience"]:checked') 
+				? document.querySelector('input[name="experience"]:checked').value 
+				: "Not specified";
+	
+			try {
+				// Push to Firestore
+				await addDoc(collection(db, "registrations"), {
+					name: name,
+					email: email,
+					contact: contact,
+					code: code || "None",
+					courses: courses.length > 0 ? courses : ["None selected"],
+					experience: experience,
+					timestamp: serverTimestamp() // ✅ Correct timestamp usage
+				});
+	
+				// Success message
+				const resultDiv = document.getElementById("result");
+				resultDiv.innerHTML = `
+					<h3>Form Submitted Successfully!</h3>
+					<p><strong>Name:</strong> ${name}</p>
+					<p><strong>Email:</strong> ${email}</p>
+					<p><strong>Contact:</strong> ${contact}</p>
+					<p><strong>Referral Code:</strong> ${code || "None"}</p>
+					<p><strong>Course Preference:</strong> ${courses.join(", ") || "None selected"}</p>
+					<p><strong>Previous Experience:</strong> ${experience}</p>
+				`;
+	
+				// Reset form
+				document.getElementById("registrationForm").reset();
+	
+			} catch (error) {
+				console.error("Error saving data: ", error);
+				alert("Error submitting form. Please try again.");
+			}
+		});
+	</script>
+	
+	  
+
+    <title>MADAN - Training Program</title>
+	<link rel="icon" href="images\rbluelogo.png" type="image/jpeg" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"></noscript>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+		.small-image {
+			width: 100% !important; /* Force smaller size */
+			max-width: 400px !important; /* Set a fixed maximum size */
+			height: auto !important; /* Maintain aspect ratio */
+			display: block !important;
+			margin: 0 auto !important; /* Center the image */
+		}		
+
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgb(14, 14, 14);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+			gap: 0px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+			display: block;
+			text-align: left;
+			margin-bottom: 2px; /* Reduced space below the label */
+			font-weight: bold;
+		}
+		
+		input {
+			width: 100%;
+			padding: 8px; /* Adjusted padding */
+			margin-top: 0; /* Ensure no extra space above input */
+			margin-bottom: 10px; /* Adjust spacing between fields */
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			display: block;
+		}
+
+		label[for="contact"] {
+			margin-bottom: 2px !important; /* Reduce space below the label */
+		}
+		
+		#contact {
+			margin-top: 0px !important; /* Ensure no extra space above input */
+			padding: 8px;
+		}
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px; 
+    margin-top: -8px; 
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px; 
+    margin-top: -8px; 
+}
+
+.checkbox-group label, .radio-group label {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    gap: 1px;
+    margin: 0; 
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+    margin-right: 6px; 
+}
+
+.radio-group input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #218838;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    transition: 0.2s all;
+}
+
+.radio-group input[type="radio"]:checked::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: #218838;  
+    border-radius: 50%;
+    display: block;
+}
+
+label[for="web"],
+label[for="app"],
+label[for="dsa"] {
+    margin-top: -5px; 
+    margin-bottom: 0px;
+}
+
+label[for="yes"],
+label[for="no"] {
+    margin-top: -8px; 
+    margin-bottom: 0px;
+}
+
+.copyright {
+	text-align: center;
+	font-size: 14px;
+}
+.copyright a {
+	text-decoration: none;
+	color: #FFFFFF;
+	margin: 0 5px;
+}
+.copyright a:hover {
+	text-decoration: underline;
+}
+        #result {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+		#contact {
+			margin-top: 40px; 
+			text-align: center;
+		}
+		
+		#contact dl {
+			display: inline-block;
+			text-align: left;
+		}		
+		
+    </style>
+</head>
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <header id="header">
+            <h1>Join our program today!</h1>
+        </header>
+
+        <div id="main">
+            <section id="content" class="main">
+                <span class="image main"><img src="images/tp.jpg" alt="Training Program" class="small-image">
+				</span>
+                <h2>Fill out the following form:</h2>
+
+                <div class="container">
+                    <form id="registrationForm">
+                        <label for="name">Name*</label>
+						<input type="text" id="name" placeholder="Your Name" required />
+                        <!-- <input type="text" id="name" name="name" required> -->
+
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" placeholder="Your Email" required>
+
+                        <label for="contact">Contact No.*</label>
+                        <input type="tel" id="contact" placeholder="Your Contact No." required>
+
+						<label for="code">Do you've a refferal code? If yes, enter: </label>
+                        <input type="code" id="code" placeholder="Code">
+
+                        <label>Course Preference*</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="web" name="course" value="Web Development">
+                            <label for="web">Web Development</label>
+
+                            <input type="checkbox" id="app" name="course" value="App Development">
+                            <label for="app">App Development</label>
+
+                            <input type="checkbox" id="dsa" name="course" value="DSA">
+                            <label for="dsa">DSA</label><br>
+                        </div>
+
+                        <label>Any Previous Training Experience or Internship Program Joined?*</label>
+                        <div class="radio-group">
+                            <input type="radio" id="yes" name="experience" value="Yes">
+                            <label for="yes">Yes</label>
+
+                            <input type="radio" id="no" name="experience" value="No">
+                            <label for="no">No</label>
+                        </div>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                    <div id="result"></div>
+                </div>
+            </section>
+        </div>
+					<footer id="footer">
+						<section>
+							<h2>Join us today!</h2>
+							<p>🔹 Work on Live Projects<br>
+								🔹 Gain Mentorship from Experts<br>
+								🔹 Enhance Your Skills with Practical Training<br>
+								🔹 Unlock Career Opportunities<br>
+								
+								🚀 Be a Part of the Future! Register Now to kickstart your journey with MADAN Solutions!</p>
+							
+						</section>
+						<section>
+							<h2>Have a Doubt?</h2>
+							<dl class="alt">
+								<dt>Phone</dt>
+								<dd>+91 88470 59424</dd>
+								<dt>Email</dt>
+								<dd><a href="#">info@themadan.com</a></dd>
+							</dl>
+							<!--<ul class="icons">
+								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>-->
+						</section>
+						<p class="copyright">
+							&copy; 2025 <a href="images/terms and conditions.pdf">Terms & Conditions</a> | 
+							<a href="images/privacy policy.pdf">Privacy Policy</a>.
+						</p>
+						
+					</footer>
+
+    </div>
+    <!-- <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const contact = document.getElementById("contact").value;
+
+            const courses = [];
+            document.querySelectorAll('input[name="course"]:checked').forEach(checkbox => {
+                courses.push(checkbox.value);
+            });
+
+            const experience = document.querySelector('input[name="experience"]:checked') ? 
+                document.querySelector('input[name="experience"]:checked').value : "Not specified";
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `
+                <h3>Form Submitted Successfully!</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Contact:</strong> ${contact}</p>
+                <p><strong>Course Preference:</strong> ${courses.join(", ") || "None selected"}</p>
+                <p><strong>Previous Experience:</strong> ${experience}</p>
+            `;
+
+            document.getElementById("registrationForm").reset();
+        });
+    </script> -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+	
+
+</body>
+</html>
