@@ -93,11 +93,11 @@
         }
 
 		.small-image {
-			width: 100% !important; /* Force smaller size */
-			max-width: 400px !important; /* Set a fixed maximum size */
-			height: auto !important; /* Maintain aspect ratio */
+			width: 100% !important;
+			max-width: 400px !important; 
+			height: auto !important; 
 			display: block !important;
-			margin: 0 auto !important; /* Center the image */
+			margin: 0 auto !important; 
 		}		
 
         .container {
@@ -120,26 +120,26 @@
         label {
 			display: block;
 			text-align: left;
-			margin-bottom: 2px; /* Reduced space below the label */
+			margin-bottom: 2px; 
 			font-weight: bold;
 		}
 		
 		input {
 			width: 100%;
-			padding: 8px; /* Adjusted padding */
-			margin-top: 0; /* Ensure no extra space above input */
-			margin-bottom: 10px; /* Adjust spacing between fields */
+			padding: 8px; 
+			margin-top: 0; 
+			margin-bottom: 10px; 
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			display: block;
 		}
 
 		label[for="contact"] {
-			margin-bottom: 2px !important; /* Reduce space below the label */
+			margin-bottom: 2px !important; 
 		}
 		
 		#contact {
-			margin-top: 0px !important; /* Ensure no extra space above input */
+			margin-top: 0px !important; 
 			padding: 8px;
 		}
 
@@ -247,8 +247,8 @@ label[for="no"] {
 		#contact dl {
 			display: inline-block;
 			text-align: left;
-		}		
-		
+		}
+        
     </style>
 </head>
 <body class="is-preload">
@@ -281,24 +281,263 @@ label[for="no"] {
                         <input type="code" id="code" placeholder="Code">
 
                         <label>Course Preference*</label>
-                        <div class="checkbox-group">
+                        <!-- <div class="checkbox-group">
                             <input type="checkbox" id="web" name="course" value="Web Development">
-                            <label for="web">Web Development</label>
+                            <label for="web">Web Development</label> 
 
                             <input type="checkbox" id="app" name="course" value="App Development">
                             <label for="app">App Development</label>
 
                             <input type="checkbox" id="dsa" name="course" value="DSA">
-                            <label for="dsa">DSA</label><br>
-                        </div>
+                            <label for="dsa">DSA</label><br> 
+                        </div> -->
 
-                        <label>Any Previous Training Experience or Internship Program Joined?*</label>
+                        <!-- <div class="checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="web" name="course" value="Web Development" onclick="toggleDropdown('web-price', this)">
+                                <label for="web">Web Development</label> 
+                                <select id="web-price" class="price-dropdown" style="display: none;">
+                                    <option>Price: Rs.1999</option>
+                                </select>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="app" name="course" value="App Development" onclick="toggleDropdown('app-price', this)">
+                                <label for="app">App Development</label> 
+                                <select id="app-price" class="price-dropdown" style="display: none;">
+                                    <option>Price: Rs.2999</option>
+                                </select>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dsa" name="course" value="DSA" onclick="toggleDropdown('dsa-price', this)">
+                                <label for="dsa">DSA</label>
+                                <select id="dsa-price" class="price-dropdown" style="display: none;">
+                                    <option>Price: Rs.2499</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function toggleDropdown(dropdownId, checkbox) {
+                                const dropdown = document.getElementById(dropdownId);
+                                dropdown.style.display = checkbox.checked ? "inline-block" : "none";
+                            }
+                        </script> -->
+
+                        <!-- <div class="checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="web" name="course" value="Web Development" onclick="togglePrice('web-price', this)">
+                                <label for="web">Web Development</label> 
+                                <span id="web-price" class="price-text" style="display: none;">Price: Rs.1999</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="app" name="course" value="App Development" onclick="togglePrice('app-price', this)">
+                                <label for="app">App Development</label> 
+                                <span id="app-price" class="price-text" style="display: none;">Price: Rs.2999</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dsa" name="course" value="DSA" onclick="togglePrice('dsa-price', this)">
+                                <label for="dsa">DSA</label>
+                                <span id="dsa-price" class="price-text" style="display: none;">Price: Rs.2499</span>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function togglePrice(priceId, checkbox) {
+                                const priceText = document.getElementById(priceId);
+                                priceText.style.display = checkbox.checked ? "inline-block" : "none";
+                            }
+                        </script> -->
+
+                        <!-- <style>
+                            .checkbox-group {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 5px; 
+                            }
+                        
+                            .checkbox-container {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                position: relative;
+                            }
+                        
+                            .price-text {
+                                margin-left: 10px;
+                                font-weight: bold;
+                                color: #218838;
+                            }
+                        </style>
+                        
+                        <div class="checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="web" name="course" value="Web Development" onclick="togglePrice('web-price', this)">
+                                <label for="web">Web Development</label> 
+                                <span id="web-price" class="price-text" style="display: none;">(Rs.1999)</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="app" name="course" value="App Development" onclick="togglePrice('app-price', this)">
+                                <label for="app">App Development</label> 
+                                <span id="app-price" class="price-text" style="display: none;">(Rs.2999)</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dsa" name="course" value="DSA" onclick="togglePrice('dsa-price', this)">
+                                <label for="dsa">DSA</label>
+                                <span id="dsa-price" class="price-text" style="display: none;">(Rs.2499)</span>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function togglePrice(priceId, checkbox) {
+                                const priceText = document.getElementById(priceId);
+                                priceText.style.display = checkbox.checked ? "inline-block" : "none";
+                            }
+                        </script> -->
+
+                        <!-- <style>
+                            .checkbox-group {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 5px;
+                                margin-top: 5px; /* Adds a bit of space from "Course Preference" */
+                            }
+                        
+                            .checkbox-container {
+                                display: flex;
+                                align-items: center;
+                                gap: 8px; /* Consistent spacing */
+                                position: relative;
+                            }
+                        
+                            .checkbox-container input[type="checkbox"] {
+                                width: 12px;  /* Kept small but usable */
+                                height: 12px;
+                                cursor: pointer;
+                                margin: 0; /* Removes extra space */
+                                flex-shrink: 0; /* Prevents shrinking */
+                            }
+                        
+                            .checkbox-container label {
+                                font-size: 16px; /* Keeps text readable */
+                                font-weight: bold;
+                                line-height: 1; /* Ensures no weird spacing */
+                            }
+                        
+                            .price-text {
+                                font-size: 14px;
+                                font-weight: bold;
+                                color: #218838;
+                                margin-left: 5px; /* Adds a tiny gap */
+                            }
+                        </style>
+                        
+                        <div class="checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="web" name="course" value="Web Development" onclick="togglePrice('web-price', this)">
+                                <label for="web">Web Development</label> 
+                                <span id="web-price" class="price-text" style="display: none;">(Rs.1999)</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="app" name="course" value="App Development" onclick="togglePrice('app-price', this)">
+                                <label for="app">App Development</label> 
+                                <span id="app-price" class="price-text" style="display: none;">(Rs.2999)</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dsa" name="course" value="DSA" onclick="togglePrice('dsa-price', this)">
+                                <label for="dsa">DSA</label>
+                                <span id="dsa-price" class="price-text" style="display: none;">(Rs.2499)</span>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function togglePrice(priceId, checkbox) {
+                                const priceText = document.getElementById(priceId);
+                                priceText.style.display = checkbox.checked ? "inline-block" : "none";
+                            }
+                        </script> -->
+                        
+                        <style>
+                            .checkbox-group {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 20px; 
+                                margin-top: 5px;
+                            }
+                        
+                            .checkbox-container {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px; 
+                                position: relative;
+                            }
+                        
+                            .checkbox-container input[type="checkbox"] {
+                                width: 14px; 
+                                height: 14px;
+                                cursor: pointer;
+                                margin: 0;
+                                flex-shrink: 0;
+                            }
+                        
+                            .checkbox-container label {
+                                font-size: 16px;
+                                font-weight: bold;
+                                line-height: 1;
+                            }
+                        
+                            .price-text {
+                                font-size: 12px;
+                                font-weight: bold;
+                                color: #000000;
+                                margin-left: 8px; 
+                            }
+                        </style>
+                        
+                        <div class="checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="web" name="course" value="Web Development" onclick="togglePrice('web-price', this)">
+                                <label for="web">Web Development</label> 
+                                <span id="web-price" class="price-text" style="display: none;">Rs.1999 <br>*To be paid at the time of confirmation</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="app" name="course" value="App Development" onclick="togglePrice('app-price', this)">
+                                <label for="app">App Development</label> 
+                                <span id="app-price" class="price-text" style="display: none;">Rs.2999 <br>*To be paid at the time of confirmation</span>
+                            </div>
+                        
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dsa" name="course" value="DSA" onclick="togglePrice('dsa-price', this)">
+                                <label for="dsa">DSA</label>
+                                <span id="dsa-price" class="price-text" style="display: none;">Rs.2499 <br>*To be paid at the time of confirmation</span>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            function togglePrice(priceId, checkbox) {
+                                const priceText = document.getElementById(priceId);
+                                priceText.style.display = checkbox.checked ? "inline-block" : "none";
+                            }
+                        </script>
+                        
+                        <label><br>Any Previous Training Experience or Internship Program Joined?*</label>
                         <div class="radio-group">
                             <input type="radio" id="yes" name="experience" value="Yes">
-                            <label for="yes">Yes</label>
+                          <label for="yes">Yes</label>
 
                             <input type="radio" id="no" name="experience" value="No">
-                            <label for="no">No</label>
+                           <label for="no">No</label>
                         </div>
 
                         <button type="submit">Submit</button>
@@ -326,51 +565,18 @@ label[for="no"] {
 								<dt>Email</dt>
 								<dd><a href="#">info@themadan.com</a></dd>
 							</dl>
-							<!--<ul class="icons">
-								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-							</ul>-->
+							
 						</section>
 						<p class="copyright">
-							&copy; 2025 <a href="images/terms and conditions.pdf">Terms & Conditions</a> | 
-							<a href="images/privacy policy.pdf">Privacy Policy</a>.
+							&copy; 2025 <a href="tandc.html">Terms & Conditions</a> | 
+							<a href="privacypolicy.html">Privacy Policy</a>|
+							<a href="returnpolicy.html">Refund Policy</a>
 						</p>
 						
 					</footer>
 
     </div>
-    <!-- <script>
-        document.getElementById("registrationForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const contact = document.getElementById("contact").value;
-
-            const courses = [];
-            document.querySelectorAll('input[name="course"]:checked').forEach(checkbox => {
-                courses.push(checkbox.value);
-            });
-
-            const experience = document.querySelector('input[name="experience"]:checked') ? 
-                document.querySelector('input[name="experience"]:checked').value : "Not specified";
-
-            const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `
-                <h3>Form Submitted Successfully!</h3>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Contact:</strong> ${contact}</p>
-                <p><strong>Course Preference:</strong> ${courses.join(", ") || "None selected"}</p>
-                <p><strong>Previous Experience:</strong> ${experience}</p>
-            `;
-
-            document.getElementById("registrationForm").reset();
-        });
-    </script> -->
+    
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
