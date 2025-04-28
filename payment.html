@@ -41,18 +41,18 @@
       <div id="amount" class="animate">Total: ₹0</div>
 
       <button type="button" id="submitDetailsButton" class="animate">Submit Details</button>
-
-      <!-- Razorpay Buttons (inside form) -->
-      <div id="paymentButtons" style="margin-top: 20px;">
-        <div id="paymentButtons" style="margin-top: 20px;"></div>
-      </div>
     </form>
+
+    <!-- Razorpay Buttons -->
+    <div id="razorpayButtonsContainer" style="margin-top: 20px; text-align: center; display: none;">
+      <form id="razorpayForm" style="display: none;"></form>
+    </div>
   </div>
 
   <!-- Loading Spinner -->
   <div id="loadingSpinner" class="spinner" style="display: none;"></div>
 
   <!-- Payment logic -->
-  <script type="module" src="payment.js"></script>
+  <script src="payment.js"></script>
 </body>
 </html>
