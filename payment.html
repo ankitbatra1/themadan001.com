@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment | Madan</title>
+  <link rel="stylesheet" href="payment.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+  <div class="payment-box animate">
+    <h2 class="animate">Complete Your Registration</h2>
+
+    <form id="paymentForm" class="animate">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required class="animate">
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required class="animate">
+
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" class="animate">
+
+      <label for="college">College Name</label>
+      <input type="text" id="college" name="college" required class="animate">
+
+      <label for="collegeId">College ID (Unique)</label>
+      <input type="text" id="collegeId" name="collegeId" required class="animate">
+
+      <label for="course">Select Course</label>
+      <select id="course" name="course" required class="animate">
+        <option value="">-- Select --</option>
+        <option value="webdev">Web Development - ₹2999</option>
+        <option value="appdev">App Development - ₹4499</option>
+      </select>
+
+      <div id="amount" class="animate">Total: ₹0</div>
+
+      <button type="button" id="submitDetailsButton" class="animate">Submit Details</button>
+
+      <!-- Razorpay Buttons (inside form) -->
+      <div id="paymentButtons" style="margin-top: 20px;">
+        <div id="paymentButtons" style="margin-top: 20px;"></div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="loadingSpinner" class="spinner" style="display: none;"></div>
+
+  <!-- Payment logic -->
+  <script type="module" src="payment.js"></script>
+</body>
+</html>
