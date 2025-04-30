@@ -105,7 +105,8 @@ const firebaseConfig = {
         paymentStatus: "pending",
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-  
+      console.log("Registration data saved to Firestore.");
+
       showPopup("Details submitted successfully! Please proceed to payment.");
       btn.style.display = 'none';
       spinner.style.display = 'none';
