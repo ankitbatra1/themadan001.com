@@ -1,5 +1,6 @@
-// Firebase configuration
-const firebaseConfig = {
+document.addEventListener('DOMContentLoaded', () => {
+  // Firebase config
+  const firebaseConfig = {
     apiKey: "AIzaSyBrxscIdG0FESLbsMNyj1N_Og2iTf8CjRw",
     authDomain: "training-at-madan.firebaseapp.com",
     projectId: "training-at-madan",
@@ -8,18 +9,17 @@ const firebaseConfig = {
     appId: "1:18245722256:web:b6dfb300c7780d99ef3815",
     measurementId: "G-HWS0BWD7NF"
   };
-  
-  // Initialize Firebase
+
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  
   let selectedAmount = 0;
-  
-  // Update displayed amount when the course changes
+
+  // Function to update amount
   function updateAmount() {
     const course = document.getElementById('course').value;
+    console.log("course selected:", course);
     const amountDiv = document.getElementById('amount');
-  
+
     if (course === 'webdev') {
       selectedAmount = 2999;
       amountDiv.innerText = 'Total: ₹2999';
@@ -31,60 +31,61 @@ const firebaseConfig = {
       amountDiv.innerText = 'Total: ₹0';
     }
   }
-  
+
   document.getElementById('course').addEventListener('change', updateAmount);
-  updateAmount();
-  // Show popup messages
+  updateAmount(); // To initialize on page load
+
+  // Show popup
   function showPopup(message) {
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
-  
+
     const popup = document.createElement('div');
     popup.className = 'popup-box';
     popup.innerText = message;
-  
+
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
-  
+
     setTimeout(() => overlay.classList.add('show'), 100);
     setTimeout(() => {
       overlay.classList.remove('show');
       setTimeout(() => overlay.remove(), 300);
     }, 2000);
   }
-  
-  // Handle form submission
+
+  // Handle submit
   document.getElementById('submitDetailsButton').addEventListener('click', async function () {
     const btn = document.getElementById('submitDetailsButton');
     const spinner = document.getElementById('loadingSpinner');
     const razorpayForm = document.getElementById('razorpayForm');
     const buttonsContainer = document.getElementById('razorpayButtonsContainer');
-  
+
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const mobile = document.getElementById('mobile').value.trim();
     const college = document.getElementById('college').value.trim();
     const collegeId = document.getElementById('collegeId').value.trim();
     const course = document.getElementById('course').value;
-  
+
     if (!name || !email || !mobile || !college || !collegeId || !course) {
       showPopup("Please fill all fields.");
       return;
     }
-  
+
     if (!selectedAmount) {
       showPopup("Please select a valid course.");
       return;
     }
-  
+
     btn.disabled = true;
     btn.innerText = "Checking...";
     spinner.style.display = 'block';
-  
+
     try {
       const docRef = db.collection("registrations").doc(collegeId);
       const doc = await docRef.get();
-  
+
       if (doc.exists && doc.data().paymentStatus === "paid") {
         showPopup("You have already registered and paid.");
         btn.innerText = "Already Registered";
@@ -92,8 +93,8 @@ const firebaseConfig = {
         spinner.style.display = 'none';
         return;
       }
-  
-      // Save registration details
+
+      // Save details
       await docRef.set({
         name,
         email,
@@ -105,26 +106,24 @@ const firebaseConfig = {
         paymentStatus: "pending",
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-      console.log("Registration data saved to Firestore.");
 
+      console.log("Registration data saved to Firestore.");
       showPopup("Details submitted successfully! Please proceed to payment.");
+
       btn.style.display = 'none';
       spinner.style.display = 'none';
-  
-      // Render Razorpay Button
-      razorpayForm.innerHTML = ''; // Clear any existing content
+
+      // Razorpay
+      razorpayForm.innerHTML = '';
       const script = document.createElement('script');
       script.src = "https://checkout.razorpay.com/v1/payment-button.js";
-      script.setAttribute(
-        'data-payment_button_id',
-        course === 'webdev' ? 'pl_QOMkVHtkD9nb1k' : 'pl_QOMsqjh5BjBHjt'
-      );
+      script.setAttribute('data-payment_button_id', course === 'webdev' ? 'pl_QOMkVHtkD9nb1k' : 'pl_QOMsqjh5BjBHjt');
       script.async = true;
       razorpayForm.appendChild(script);
-  
+
       buttonsContainer.style.display = 'block';
       razorpayForm.style.display = 'block';
-  
+
     } catch (error) {
       console.error(error);
       showPopup("Error saving details. Please try again.");
@@ -133,4 +132,4 @@ const firebaseConfig = {
       spinner.style.display = 'none';
     }
   });
-  
+});
