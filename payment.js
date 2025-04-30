@@ -33,7 +33,7 @@ const firebaseConfig = {
   }
   
   document.getElementById('course').addEventListener('change', updateAmount);
-  
+  updateAmount();
   // Show popup messages
   function showPopup(message) {
     const overlay = document.createElement('div');
